@@ -66,7 +66,7 @@ class Grid extends Component{
                 picks: round[nextRound],
                 money: newMoneyValues,
                 nextRound:false
-            }, function(){console.log("setstate complete"); this.buildSquares()});
+            }, function(){console.log("setstate complete", this.state); this.buildSquares()});
             this.clearSquares();
         }
         // grey out chosen squares
@@ -98,22 +98,38 @@ class Grid extends Component{
 
     // build each square and give it a random value based on the round
     buildSquares = () => {
-
+        let alreadySelected = this.state.selectedSquares;
         let squares = [];
-        console.log(squares);
+        //check the already selected squares, if the id is the same, leave it
+        let square;
+        let found = false;
         for(let i = 0; i < 25; i++){
-          let value = this.loadValue();   
-          let square = 
-            <Square 
-                key={i}
-                data-key={i} 
-                value={value} 
-                pick={(e)=>this.countPicks(e)} 
-                total={this.state.total} 
-                onClick={(e)=>this.addValue(e)}>
-            </Square>
+            found = false;
+            if(alreadySelected){
+                for(let j=0; j< alreadySelected.length; j++){
+                    if(alreadySelected[j] === this.state.squareGrid[i].key){
+                        square = this.state.squareGrid[i];
+                        found = true;
+                    }
+                }
+            } 
+            if(!found){
+
+                let value = this.loadValue();   
+                square = 
+                <Square 
+                    key={i}
+                    data-key={i} 
+                    value={value} 
+                    pick={(e)=>this.countPicks(e)} 
+                    total={this.state.total} 
+                    onClick={(e)=>this.addValue(e)}>
+                </Square>
+            }
+
           squares.push(square);
         }    
+        this.setState({squareGrid: squares});
         return squares;
     }
 
