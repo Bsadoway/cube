@@ -15,6 +15,12 @@ const round = {
     "8": 1,
 }
 
+const powerPieces = {
+    "2": ["Small Mystery Box", "The Slasher"],
+    "3": ["The Bomb", "Big Mystery Box"],
+    "4": ["Money Lock", "Bankrupt"]
+}
+
 
 class Grid extends Component{
     constructor(props){
@@ -59,32 +65,39 @@ class Grid extends Component{
             // TODO make game over popup
         } else {
             let newMoneyValues = myData[nextRound];
-            console.log(newMoneyValues);
             
             this.setState({
                 round: nextRound,
                 picks: round[nextRound],
                 money: newMoneyValues,
                 nextRound:false
-            }, function(){console.log("setstate complete", this.state); this.buildSquares()});
-            this.clearSquares();
+            }, function(){console.log("setstate complete", this.state); this.buildSquares();});
+            
         }
         // grey out chosen squares
         // add new values to the squares left
 
     }
 
-    greyOutSquares = () => {
-        let sq = this.state.selectedSquares;
-        sq.forEach(item =>{
-            console.log(item);
-        });
+    greyOutSquares = (e) => {
+        console.log(e.target)
+        let selectedSquares = this.state.selectedSquares;
+        let squareGrid = this.state.squareGrid;
+        if(selectedSquares){
+            for(let i=0; i< selectedSquares.length; i++){
+                if(selectedSquares[i] === e.target){
+                   console.log("YUP");
+                   
+                }
+            }
+        } 
     }
 
     // add the value to the total and push the selected square onto the selected square array
     addValue = (e) => {
         let sq = [];
         let val = Number(e.target.getAttribute("value"));
+        console.log(`Value:${val} ${e.target}`)
         let total = this.state.total + val;
         sq = this.state.selectedSquares;
         sq.push(e.target.getAttribute('data-key'));
@@ -92,7 +105,7 @@ class Grid extends Component{
         this.checkRound();  
     }
 
-    clearSquares = () => {
+    addPowerPieces = () => {
 
     }
 
@@ -102,13 +115,22 @@ class Grid extends Component{
         let squares = [];
         //check the already selected squares, if the id is the same, leave it
         let square;
+        let grey = false;
         let found = false;
         for(let i = 0; i < 25; i++){
             found = false;
             if(alreadySelected){
                 for(let j=0; j< alreadySelected.length; j++){
                     if(alreadySelected[j] === this.state.squareGrid[i].key){
-                        square = this.state.squareGrid[i];
+                        grey = true;
+                        // square = this.state.squareGrid[i];
+                        square = 
+                         <Square 
+                            key={i}
+                            onChange={grey}
+                            data-key={this.state.squareGrid[i]['data-key']} 
+                            >
+                        </Square>
                         found = true;
                     }
                 }

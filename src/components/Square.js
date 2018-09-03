@@ -8,9 +8,11 @@ class Square extends Component{
 
         this.state = {
             active : false,
-            moneyValue:0
+            moneyValue:0,
         }   
     }
+
+  
     
     revealValue = (e) => {
         if(this.props.pick() > 0) {
@@ -20,6 +22,7 @@ class Square extends Component{
         }
     }
 
+
     flip = (e) => {
         this.setState({
             active: !this.state.active
@@ -28,8 +31,11 @@ class Square extends Component{
     
 
     render(){
+        const grey = this.props.onChange? "grey" : "";
+        const squareActive = this.state.active ? 'squareflip' : 'square';
+        const squareClasses = `${grey} ${squareActive}`;
         return(
-            <div data-key={this.props['data-key']} className={this.state.active ? 'squareflip' : 'square'} onClick={(e) => this.revealValue(e)} value={this.props.value}>
+            <div data-key={this.props['data-key']} className={squareClasses}  onClick={(e) => this.revealValue(e)} value={this.props.value}>
                 {this.state.moneyValue > 0? this.state.moneyValue: ""}
             </div>
         )

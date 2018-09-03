@@ -28,6 +28,11 @@
     pointer-events: none;
 }
 
+.grey{
+    background: #808080;
+    color: transparent;
+}
+
 @keyframes glowing {
     0% { box-shadow: 0 0 -10px #FFF; }
     40% { box-shadow: 0 0 20px #FFF; }
