@@ -15,9 +15,6 @@ const round = {
     "8": 1,
 }
 
-
-
-
 class Grid extends Component{
     constructor(props){
         super(props);
@@ -73,6 +70,17 @@ class Grid extends Component{
         }
     }
 
+    // Bankrupts or slashes the money in half
+    powerPieceValueHandler = (powerPiece,total) => {
+        switch(powerPiece){
+            case "Bankrupt":
+                return 0;
+            case "The Slasher":
+                return Math.floor(total/2);
+            default:
+                return total;
+        }
+    }
    
     // add the value to the total and push the selected square onto the selected square array
     addValue = (e) => {
@@ -81,7 +89,8 @@ class Grid extends Component{
         let total = this.state.total;
         let val = e.target.getAttribute("value");
         if(isNaN(val)){
-            powerP.push(val);    
+            powerP.push(val);
+            total = this.powerPieceValueHandler(val,total);    
         } else {
             total = this.state.total + Number(val);
         }
@@ -121,11 +130,9 @@ class Grid extends Component{
         } else { 
             amount -= this.state.picks;
             let remaining = amount - values.length -1;
-            console.log(remaining, this.state.picks)
             for(let i = 0; i < remaining; i++){
                 values.push(middle);
             }
-            console.log(values);
             this.setState({money: values, leftOverSquaresAmount: amount }, function(){
                 console.log("setstate complete3"); 
             });
