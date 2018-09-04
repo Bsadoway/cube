@@ -95,6 +95,7 @@ class Grid extends Component{
     checkPowerPieces = () => {
         let powerPieces = this.state.powerPieces;
         let values = this.state.money;
+        console.log(powerPieces);
         
         for(let j = 0; j < powerPieces.length; j++ ){
             for(let i = 0; i < values.length; i++){
@@ -110,6 +111,7 @@ class Grid extends Component{
         
     }
 
+    // make sure the values have the correct amount of picks
     addValuesToArray = () => {
         let values = this.state.money;
         let amount = this.state.leftOverSquaresAmount;
@@ -118,24 +120,16 @@ class Grid extends Component{
             return;
         } else { 
             amount -= this.state.picks;
-            console.log(amount, values.length);
-
             let remaining = amount - values.length -1;
-            console.log(remaining, amount, values.length);
-            
-            for(let i = remaining; i !== 0; i--){
+            console.log(remaining, this.state.picks)
+            for(let i = 0; i < remaining; i++){
                 values.push(middle);
             }
-            console.log(values, amount);
-            
+            console.log(values);
             this.setState({money: values, leftOverSquaresAmount: amount }, function(){
                 console.log("setstate complete3"); 
             });
         }
-
-        //load up current array of values
-        // if values === 25 - the round picks do nothing
-        // else add average values up to 25 - picks
     }
 
     // build each square and give it a random value based on the round
