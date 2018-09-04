@@ -72,33 +72,20 @@ class Grid extends Component{
                 money: newMoneyValues,
                 nextRound:false
             }, function(){console.log("setstate complete", this.state); this.buildSquares();});
-            
         }
-        // grey out chosen squares
-        // add new values to the squares left
-
     }
 
-    greyOutSquares = (e) => {
-        console.log(e.target)
-        let selectedSquares = this.state.selectedSquares;
-        let squareGrid = this.state.squareGrid;
-        if(selectedSquares){
-            for(let i=0; i< selectedSquares.length; i++){
-                if(selectedSquares[i] === e.target){
-                   console.log("YUP");
-                   
-                }
-            }
-        } 
-    }
-
+   
     // add the value to the total and push the selected square onto the selected square array
     addValue = (e) => {
         let sq = [];
-        let val = Number(e.target.getAttribute("value"));
-        console.log(`Value:${val} ${e.target}`)
-        let total = this.state.total + val;
+        let total = this.state.total;
+        let val = e.target.getAttribute("value");
+        if(isNaN(val)){
+            console.log(val);       
+        } else {
+            total = this.state.total + Number(val);
+        }
         sq = this.state.selectedSquares;
         sq.push(e.target.getAttribute('data-key'));
         this.setState({total: total, selectedSquares: sq});  
@@ -106,7 +93,72 @@ class Grid extends Component{
     }
 
     addPowerPieces = () => {
+        // load the powerpieces into the mydata based on the round
+        // if the powerpieces were not selected keep them for the next round
+        let round = this.state.round;
+        let values = this.state.money.values;
+        switch(round) {
+            case 2:
+                values.push("Small Mystery Box", "The Slasher");
+                break;
+            case 3:
+                values.push("The Bomb", "Big Mystery Box");
+                break;
+            case 4:
+                values.push("Money Lock", "Bankrupt");
+                break;
+        }
+        this.fillArrayOfValues(values, round);
+        console.log(values);
+        
+        this.setState({money: values});
+    }
 
+    fillArrayOfValues = (values , round) =>{
+        let alreadySelected = this.state.selectedSquares;
+        let sMystery = false;
+        let slasher = false;
+        let bomb = false;
+        let bMystery = false;
+
+        console.log(alreadySelected);
+        
+        if(round > 3) {
+            console.log(round);
+            
+            for(let i = 0; i > alreadySelected; i++){
+                if(alreadySelected[i].value === "Small Mystery Box"){
+                    sMystery = true;
+                } 
+                if(alreadySelected[i].value === "The Slasher"){
+                    slasher = true;
+                } 
+            }
+
+            if(!sMystery){
+                values.push("Small Mystery Box");
+            }
+            if(!slasher){
+                values.push("The Slasher");
+            }
+        }
+        if(round > 4){
+            for(let i = 0; i > alreadySelected; i++){
+                if(alreadySelected[i].value === "Big Mystery Box"){
+                    bMystery = true;
+                } 
+                if(alreadySelected[i].value === "The Bomb"){
+                    bomb = true;
+                } 
+            }
+
+            if(!bMystery){
+                values.push("Big Mystery Box");
+            }
+            if(!bomb){
+                values.push("The Bomb");
+            }
+        }
     }
 
     // build each square and give it a random value based on the round
@@ -115,19 +167,17 @@ class Grid extends Component{
         let squares = [];
         //check the already selected squares, if the id is the same, leave it
         let square;
-        let grey = false;
         let found = false;
+        this.addPowerPieces();
         for(let i = 0; i < 25; i++){
             found = false;
             if(alreadySelected){
                 for(let j=0; j< alreadySelected.length; j++){
                     if(alreadySelected[j] === this.state.squareGrid[i].key){
-                        grey = true;
-                        // square = this.state.squareGrid[i];
                         square = 
                          <Square 
                             key={i}
-                            onChange={grey}
+                            onGrey={true}
                             data-key={this.state.squareGrid[i]['data-key']} 
                             >
                         </Square>
@@ -156,7 +206,7 @@ class Grid extends Component{
     }
 
       // load correct values based on the round
-    loadValue = () =>{
+    loadValue = () => {
         let item = this.state.money.values.splice([Math.floor(Math.random()*this.state.money.values.length)],1);
         return item;    
      }
