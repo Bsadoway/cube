@@ -3,6 +3,7 @@ import './Grid.css';
 import Square from './Square';
 import myData from '../values.json';
 import Total from './Total';
+import LockedTotal from './LockedTotal';
 
 const round = {
     "1": 5,
@@ -23,6 +24,7 @@ class Grid extends Component{
             money: myData[1].values,
             squareGrid: [],
             total: 0,
+            lockedTotal: 0,
             round: 1,
             picks: round[1],
             selectedSquares: [],
@@ -70,13 +72,16 @@ class Grid extends Component{
         }
     }
 
-    // Bankrupts or slashes the money in half
+    // Bankrupts or slashes the money in half, locks money into the money lock bank
     powerPieceValueHandler = (powerPiece,total) => {
         switch(powerPiece){
             case "Bankrupt":
                 return 0;
             case "The Slasher":
                 return Math.floor(total/2);
+            case "Money Lock":
+                this.setState({lockedTotal: total});
+                return 0;
             default:
                 return total;
         }
@@ -190,14 +195,22 @@ class Grid extends Component{
      }
     
     render() {
+        let total = this.state.total.toLocaleString('en');
         return (
-            <div>
-                <h1>Round: {this.state.round}</h1>
-                <div className={this.state.nextRound ? 'next-round-active' : 'next-round-disabled'} onClick={this.nextRound}>Next Round</div>
+            <div className="">
+                <div className="rounds">
+                    <h1>Round: {this.state.round}</h1>
+                    <div className={this.state.nextRound ? 'next-round-active' : 'next-round-disabled'} onClick={this.nextRound}>Next Round</div>
+                </div>
+                <div className="board-area">
                     <div className="grid">
                         {this.state.squareGrid}
                     </div>
-                <h2><Total total={this.state.total}/></h2>
+                    <div className="totals">
+                        <h2><Total total={total}/></h2>
+                        <h2><LockedTotal lockedTotal={this.state.lockedTotal}/></h2>
+                    </div>
+                </div>
             </div>
         )
     }

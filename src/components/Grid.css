@@ -42,3 +42,20 @@
 .next-round-disabled {
     display: none;
 }
+
+.totals {
+	display: flex;
+	flex-direction: column;
+	padding: 50px;
+
+}
+
+.board-area{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.rounds {
+	display: flex;
+}
