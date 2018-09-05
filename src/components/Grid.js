@@ -15,29 +15,14 @@ const round = {
     "6": 2,
     "7": 2,
     "8": 1,
-}
-
-const initialState = {
-    money: myData[1].values,
-    squareGrid: [],
-    total: 0,
-    lockedTotal: 0,
-    lives: 3,
-    round: 1,
-    picks: round[1],
-    selectedSquares: [],
-    nextRound: false,
-    powerPieces: [],
-    leftOverSquaresAmount: 20,
-    gameOver: false
-}
+};
 
 class Grid extends Component{
     constructor(props){
         super(props);
 
         this.state = {
-            money: myData[1].values,
+            money: [],
             squareGrid: [],
             total: 0,
             lockedTotal: 0,
@@ -48,23 +33,15 @@ class Grid extends Component{
             nextRound: false,
             powerPieces: [],
             leftOverSquaresAmount: 20,
-            gameOver: false
         }
     }
       
     componentDidMount(){
-        this.buildSquares();
-        // this.setState({
-        //     squareGrid : this.buildSquares(),
-        // });
-        // this.initialLoad();
+        let money = [...myData[1].values];
+        this.setState({money: money}, function(){
+            this.buildSquares();
+        })
     }
-
-    // initialLoad = () => {
-    //     this.setState({
-    //         squareGrid : this.buildSquares(),
-    //     });
-    // }
 
     countPicks = () => {
         let picks = this.state.picks;
@@ -74,7 +51,6 @@ class Grid extends Component{
 
     checkRound = () => {
         if(this.state.picks === 1){
-            console.log("out of round picks");
             if(this.state.round < 8){
                 this.setState({nextRound: true});
             }
@@ -88,14 +64,13 @@ class Grid extends Component{
             console.log("game over");
             // TODO make game over popup
         } else {
-            let newMoneyValues = myData[nextRound].values;
+            let newMoneyValues = [...myData[nextRound].values];
             this.setState({
                 round: nextRound,
                 picks: round[nextRound],
                 money: newMoneyValues,
                 nextRound:false
             }, function(){
-                console.log("setstate complete"); 
                 this.checkPowerPieces();
             });
         }
@@ -150,7 +125,6 @@ class Grid extends Component{
             }
         }
         this.setState({money: values}, function(){
-            console.log("setstate complete2"); 
             this.buildSquares();}
         );
     }
@@ -169,7 +143,6 @@ class Grid extends Component{
                 values.push(middle);
             }
             this.setState({money: values, leftOverSquaresAmount: amount }, function(){
-                console.log("setstate complete3"); 
             });
         }
     }
@@ -177,7 +150,6 @@ class Grid extends Component{
     // build each square and give it a random value based on the round
     buildSquares = () => {
         let alreadySelected = this.state.selectedSquares;
-        console.log(alreadySelected);
         
         let squares = [];
         //check the already selected squares, if the id is the same, leave it
@@ -201,8 +173,7 @@ class Grid extends Component{
                 }
             } 
             if(!found){
-
-                let value = this.loadValue();   
+                let value = this.loadValue();  
                 square = 
                 <Square 
                     key={i}
@@ -220,6 +191,7 @@ class Grid extends Component{
     }
 
     // load correct values based on the round
+    // TODO fix state being directly changed without setstate()
     loadValue = () => {
         let item = this.state.money.splice([Math.floor(Math.random()*this.state.money.length)],1);
         return item;    
@@ -229,9 +201,7 @@ class Grid extends Component{
     removeLife = () => {
         let lives = this.state.lives - 1;
         this.setState({lives: lives});
-        console.log(lives)
         if(lives === 0){
-            console.log(this.props.endGame)
             this.props.endGame();
         }        
     }
