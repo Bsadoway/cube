@@ -8,19 +8,20 @@ class Lives extends Component{
         super(props);
 
         this.state = {
-            lives: 3,
-            hearts: []
+            hearts: [],
         }
-        
     }
 
     buildLives = () => {
         let hearts = [];
+        let count = 0;
         for(let i = 0; i < this.props.lives; i++){
-            hearts.push(<HealthPoint key={i} dead={false}/>)
+            hearts.push(<HealthPoint key={i} dead={false}  onChange={this.props.onChange}/>)
+            count = i;
         }
         for(let i = 0; i < (3-this.props.lives); i++){
-            hearts.push(<HealthPoint key={i} dead={true}/>)
+            count++;
+            hearts.push(<HealthPoint key={count} dead={true} />)
         }
         return hearts;
     }

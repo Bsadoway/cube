@@ -70,7 +70,10 @@ class Grid extends Component{
                 picks: round[nextRound],
                 money: newMoneyValues,
                 nextRound:false
-            }, function(){console.log("setstate complete"); this.checkPowerPieces();});
+            }, function(){
+                console.log("setstate complete"); 
+                this.checkPowerPieces();
+            });
         }
     }
 
@@ -87,8 +90,6 @@ class Grid extends Component{
             case "The Bomb":
                 let lives = this.state.lives - 1;
                 this.setState({lives: lives});
-                console.log('BOOOM' + lives);
-                
                 return total;
             default:
                 return total;
@@ -117,7 +118,6 @@ class Grid extends Component{
     checkPowerPieces = () => {
         let powerPieces = this.state.powerPieces;
         let values = this.state.money;
-        console.log(powerPieces);
         
         for(let j = 0; j < powerPieces.length; j++ ){
             for(let i = 0; i < values.length; i++){
@@ -127,7 +127,7 @@ class Grid extends Component{
             }
         }
         this.setState({money: values}, function(){
-            console.log("setstate complete2", this.state.money); 
+            console.log("setstate complete2"); 
             this.buildSquares();}
         );
         
@@ -200,10 +200,17 @@ class Grid extends Component{
     loadValue = () => {
         let item = this.state.money.splice([Math.floor(Math.random()*this.state.money.length)],1);
         return item;    
-     }
+    }
+
+    // remove a life from state on click
+    removeLife = () => {
+        let lives = this.state.lives - 1;
+        this.setState({lives: lives});        
+    }
     
     render() {
         let total = this.state.total.toLocaleString('en');
+        let lockedTotal = this.state.lockedTotal.toLocaleString('en');
         return (
             <div className="">
                 <div className="rounds">
@@ -215,9 +222,9 @@ class Grid extends Component{
                         {this.state.squareGrid}
                     </div>
                     <div className="totals">
-                        <Lives lives={this.state.lives}/>
+                        <Lives lives={this.state.lives} onChange={this.removeLife.bind(this)}/>
                         <h2><Total total={total}/></h2>
-                        <h2><LockedTotal lockedTotal={this.state.lockedTotal}/></h2>
+                        <h2><LockedTotal lockedTotal={lockedTotal}/></h2>
                     </div>
                 </div>
             </div>

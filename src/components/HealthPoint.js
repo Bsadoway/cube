@@ -9,16 +9,16 @@ class HealthPoint extends Component{
         this.state = {
             dead: false
         }
-        
     }
 
-    killHeart = () =>{
+    killHeart = (e) =>{
         this.setState({dead:true});
+        this.props.onChange();
     }
     
     render(){
         return(
-            <div className={this.state.dead || this.props.dead? "heart-container-dead" : "heart-container"} onClick={this.killHeart}>
+            <div className={this.state.dead || this.props.dead? "heart-container-dead" : "heart-container"} onClick={e => this.killHeart(e)}>
 
             </div>
         )
