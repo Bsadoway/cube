@@ -17,6 +17,21 @@ const round = {
     "8": 1,
 }
 
+const initialState = {
+    money: myData[1].values,
+    squareGrid: [],
+    total: 0,
+    lockedTotal: 0,
+    lives: 3,
+    round: 1,
+    picks: round[1],
+    selectedSquares: [],
+    nextRound: false,
+    powerPieces: [],
+    leftOverSquaresAmount: 20,
+    gameOver: false
+}
+
 class Grid extends Component{
     constructor(props){
         super(props);
@@ -32,16 +47,24 @@ class Grid extends Component{
             selectedSquares: [],
             nextRound: false,
             powerPieces: [],
-            leftOverSquaresAmount: 20
-          }
+            leftOverSquaresAmount: 20,
+            gameOver: false
+        }
     }
       
     componentDidMount(){
-        this.setState({
-            squareGrid :this.buildSquares(),
-            picks: round[1]
-        });
+        this.buildSquares();
+        // this.setState({
+        //     squareGrid : this.buildSquares(),
+        // });
+        // this.initialLoad();
     }
+
+    // initialLoad = () => {
+    //     this.setState({
+    //         squareGrid : this.buildSquares(),
+    //     });
+    // }
 
     countPicks = () => {
         let picks = this.state.picks;
@@ -52,19 +75,20 @@ class Grid extends Component{
     checkRound = () => {
         if(this.state.picks === 1){
             console.log("out of round picks");
-            this.setState({nextRound: true});
+            if(this.state.round < 8){
+                this.setState({nextRound: true});
+            }
         }
     }
 
     nextRound = () => {
         // go to next round
         let nextRound = this.state.round + 1;
-        if(nextRound === '9'){
+        if(nextRound === 9){
             console.log("game over");
             // TODO make game over popup
         } else {
             let newMoneyValues = myData[nextRound].values;
-            
             this.setState({
                 round: nextRound,
                 picks: round[nextRound],
@@ -88,8 +112,7 @@ class Grid extends Component{
                 this.setState({lockedTotal: total});
                 return 0;
             case "The Bomb":
-                let lives = this.state.lives - 1;
-                this.setState({lives: lives});
+                this.removeLife();
                 return total;
             default:
                 return total;
@@ -130,7 +153,6 @@ class Grid extends Component{
             console.log("setstate complete2"); 
             this.buildSquares();}
         );
-        
     }
 
     // make sure the values have the correct amount of picks
@@ -155,6 +177,8 @@ class Grid extends Component{
     // build each square and give it a random value based on the round
     buildSquares = () => {
         let alreadySelected = this.state.selectedSquares;
+        console.log(alreadySelected);
+        
         let squares = [];
         //check the already selected squares, if the id is the same, leave it
         let square;
@@ -162,7 +186,7 @@ class Grid extends Component{
         this.addValuesToArray();
         for(let i = 0; i < 25; i++){
             found = false;
-            if(alreadySelected){
+            if(alreadySelected.length > 0){
                 for(let j=0; j < alreadySelected.length; j++){
                     if(alreadySelected[j] === this.state.squareGrid[i].key){
                         square = 
@@ -193,10 +217,9 @@ class Grid extends Component{
           squares.push(square);
         }    
         this.setState({squareGrid: squares});
-        return squares;
     }
 
-      // load correct values based on the round
+    // load correct values based on the round
     loadValue = () => {
         let item = this.state.money.splice([Math.floor(Math.random()*this.state.money.length)],1);
         return item;    
@@ -205,23 +228,28 @@ class Grid extends Component{
     // remove a life from state on click
     removeLife = () => {
         let lives = this.state.lives - 1;
-        this.setState({lives: lives});        
+        this.setState({lives: lives});
+        console.log(lives)
+        if(lives === 0){
+            console.log(this.props.endGame)
+            this.props.endGame();
+        }        
     }
     
     render() {
         let total = this.state.total.toLocaleString('en');
-        let lockedTotal = this.state.lockedTotal.toLocaleString('en');
+        let lockedTotal = this.state.lockedTotal;
         return (
             <div className="">
-                <div className="rounds">
-                    <h1>Round: {this.state.round}</h1>
-                    <div className={this.state.nextRound ? 'next-round-active' : 'next-round-disabled'} onClick={this.nextRound}>Next Round</div>
-                </div>
                 <div className="board-area">
                     <div className="grid">
                         {this.state.squareGrid}
                     </div>
                     <div className="totals">
+                        <div className="rounds">
+                            <h1>Round: {this.state.round}</h1>
+                            <div className={this.state.nextRound ? 'next-round-active' : 'next-round-disabled'} onClick={this.nextRound}>>></div>
+                        </div>
                         <Lives lives={this.state.lives} onChange={this.removeLife.bind(this)}/>
                         <h2><Total total={total}/></h2>
                         <h2><LockedTotal lockedTotal={lockedTotal}/></h2>

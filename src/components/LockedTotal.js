@@ -14,9 +14,11 @@ class LockedTotal extends Component{
     render(){
         let visible = this.props.lockedTotal > 0 ? "":"invisible";
         let lockedClasses = `${visible} total-box`;
+        let lockedTotal = this.props.lockedTotal;
         return(
             
-            <div className={lockedClasses}>${this.props.lockedTotal}
+            <div className={lockedClasses}>
+                ${lockedTotal.toLocaleString('en')}
             </div>
         )
     }
