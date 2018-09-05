@@ -4,6 +4,7 @@ import Square from './Square';
 import myData from '../values.json';
 import Total from './Total';
 import LockedTotal from './LockedTotal';
+import Lives from './Lives';
 
 const round = {
     "1": 5,
@@ -25,6 +26,7 @@ class Grid extends Component{
             squareGrid: [],
             total: 0,
             lockedTotal: 0,
+            lives: 3,
             round: 1,
             picks: round[1],
             selectedSquares: [],
@@ -82,6 +84,12 @@ class Grid extends Component{
             case "Money Lock":
                 this.setState({lockedTotal: total});
                 return 0;
+            case "The Bomb":
+                let lives = this.state.lives - 1;
+                this.setState({lives: lives});
+                console.log('BOOOM' + lives);
+                
+                return total;
             default:
                 return total;
         }
@@ -207,6 +215,7 @@ class Grid extends Component{
                         {this.state.squareGrid}
                     </div>
                     <div className="totals">
+                        <Lives lives={this.state.lives}/>
                         <h2><Total total={total}/></h2>
                         <h2><LockedTotal lockedTotal={this.state.lockedTotal}/></h2>
                     </div>
