@@ -33,7 +33,7 @@ class Grid extends Component{
             selectedSquares: [],
             nextRound: false,
             powerPieces: [],
-            leftOverSquaresAmount: 20,
+            leftOverSquaresAmount: 25,
         }
     }
       
@@ -135,28 +135,36 @@ class Grid extends Component{
     }
 
 
+    getRandomNumValue = (values) => {
+        let random = values[Math.floor(Math.random()*values.length)];
+        return random;
+    }
 
-    // make sure the values have the correct amount of picks
+
+    // make sure the money values have the correct amount in the array, either adds or removes a number if the array does not fit the leftover squares
     addValuesToArray = () => {
         let values = this.state.money;
-        
         let amount = this.state.leftOverSquaresAmount;
-        let middle = values[Math.floor((values.length - 1) / 2)];
-        if(values.length === amount || this.state.round === 1){
-            return;
-        } else { 
-            let remaining = amount - values.length;
+        let remaining = amount - values.length;
+
+        if(remaining > 0){
+            let middle = values[Math.floor((values.length - 1) / 2)];
             for(let i = 0; i < remaining; i++){
                 values.push(middle);
             }
-            amount -= this.state.picks;
-            this.setState({money: values, leftOverSquaresAmount: amount }, function(){
-            });
-        }
-    }
-
-    addPowerPieces =() => {
-
+        } else if(remaining < 0) {
+            while(remaining < 0){
+                let randomVal = this.getRandomNumValue(values)
+                if(typeof randomVal !== "string"){
+                    let index = values.indexOf(randomVal);
+                    values.splice(index,1);
+                    remaining++;
+                }
+            }
+            
+        } 
+        amount -= this.state.picks;
+        this.setState({money: values,leftOverSquaresAmount: amount});
     }
 
     // build each square and give it a random value based on the round
