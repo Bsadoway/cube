@@ -61,6 +61,23 @@ class Grid extends Component{
         }
     }
 
+    // check the list of values and remove powerpieces that are already selected
+    checkPowerPieces = () => {
+        let powerPieces = this.state.powerPieces;
+        let values = this.state.money;
+        
+        for(let j = 0; j < powerPieces.length; j++ ){
+            for(let i = 0; i < values.length; i++){
+                if(values[i] === powerPieces[j]){
+                    values.splice(i,1);
+                }
+            }
+        }
+        this.setState({money: values}, function(){
+            this.buildSquares();}
+        );
+    }
+
     nextRound = () => {
         // go to next round
         let nextRound = this.state.round + 1;
@@ -117,39 +134,29 @@ class Grid extends Component{
         this.checkRound();  
     }
 
-    // check the list of values and remove powerpieces that are already selected
-    checkPowerPieces = () => {
-        let powerPieces = this.state.powerPieces;
-        let values = this.state.money;
-        
-        for(let j = 0; j < powerPieces.length; j++ ){
-            for(let i = 0; i < values.length; i++){
-                if(values[i] === powerPieces[j]){
-                    values.splice(i,1);
-                }
-            }
-        }
-        this.setState({money: values}, function(){
-            this.buildSquares();}
-        );
-    }
+
 
     // make sure the values have the correct amount of picks
     addValuesToArray = () => {
         let values = this.state.money;
+        
         let amount = this.state.leftOverSquaresAmount;
         let middle = values[Math.floor((values.length - 1) / 2)];
         if(values.length === amount || this.state.round === 1){
             return;
         } else { 
-            amount -= this.state.picks;
-            let remaining = amount - values.length -1;
+            let remaining = amount - values.length;
             for(let i = 0; i < remaining; i++){
                 values.push(middle);
             }
+            amount -= this.state.picks;
             this.setState({money: values, leftOverSquaresAmount: amount }, function(){
             });
         }
+    }
+
+    addPowerPieces =() => {
+
     }
 
     // build each square and give it a random value based on the round
