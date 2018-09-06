@@ -184,8 +184,7 @@ class Grid extends Component{
                     onClick={(e)=>this.addValue(e)}>
                 </Square>
             }
-
-          squares.push(square);
+            squares.push(square);
         }    
         this.setState({squareGrid: squares});
     }
