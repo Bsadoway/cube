@@ -24,6 +24,7 @@ class Grid extends Component{
         this.state = {
             money: [],
             squareGrid: [],
+            oldTotal: 0,
             total: 0,
             lockedTotal: 0,
             lives: 3,
@@ -51,8 +52,11 @@ class Grid extends Component{
 
     checkRound = () => {
         if(this.state.picks === 1){
-            if(this.state.round < 8){
+            if(this.state.round < 8) {
                 this.setState({nextRound: true});
+            }
+            if(this.state.round === 8) {
+                this.props.endGame();
             }
         }
     }
@@ -99,6 +103,7 @@ class Grid extends Component{
         let sq = [];
         let powerP = this.state.powerPieces;
         let total = this.state.total;
+        let oldTotal = this.state.total;
         let val = e.target.getAttribute("value");
         if(isNaN(val)){
             powerP.push(val);
@@ -108,7 +113,7 @@ class Grid extends Component{
         }
         sq = this.state.selectedSquares;
         sq.push(e.target.getAttribute('data-key'));
-        this.setState({total: total, selectedSquares: sq, powerPieces: powerP});  
+        this.setState({total: total, oldTotal: oldTotal, selectedSquares: sq, powerPieces: powerP});  
         this.checkRound();  
     }
 
@@ -206,7 +211,8 @@ class Grid extends Component{
     }
     
     render() {
-        let total = this.state.total.toLocaleString('en');
+        let total = this.state.total;
+        let oldTotal = this.state.oldTotal;
         let lockedTotal = this.state.lockedTotal;
         return (
             <div className="">
@@ -220,7 +226,7 @@ class Grid extends Component{
                             <div className={this.state.nextRound ? 'next-round-active' : 'next-round-disabled'} onClick={this.nextRound}>>></div>
                         </div>
                         <Lives lives={this.state.lives} onChange={this.removeLife.bind(this)}/>
-                        <h2><Total total={total}/></h2>
+                        <h2><Total total={total} oldTotal={oldTotal}/></h2>
                         <h2><LockedTotal lockedTotal={lockedTotal}/></h2>
                     </div>
                 </div>

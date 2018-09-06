@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "react": "^16.4.2",
+    "react-countup": "^4.0.0-alpha.6",
     "react-dom": "^16.4.2",
     "react-scripts": "1.1.5"
   },

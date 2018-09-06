@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Square.css';
+import CountUp from 'react-countup';
 
 
 class Total extends Component{
@@ -12,8 +13,11 @@ class Total extends Component{
     }
     
     render(){
+        let numberUp = Number(this.props.total);
         return(
-            <div className="total-box">${this.props.total}
+            <div className="total-box">
+                $
+                <CountUp start={this.props.oldTotal} end={numberUp} separator=","/>
             </div>
         )
     }
