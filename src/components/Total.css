@@ -1,5 +1,5 @@
 .total-box {
-    border: 2px solid pink;
+    border: 2px solid rebeccapurple;
     border-radius: 15px;
     width: 300px;
     height: 100px;
@@ -7,8 +7,15 @@
     text-align: center;
     font-size: 60px;
     margin: auto;
+    background-image: url("../img/bg-metal.png");
+    background-repeat: no-repeat;
+    background-color: rgba(55, 7, 95, 0.173);
 }
 
 .invisible {
     display: none;
+}
+
+.lock-icon {
+    width:50px;
 }

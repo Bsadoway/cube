@@ -19,6 +19,7 @@
     outline-offset: 0px;
     text-shadow: none;
     transition: all 1250ms cubic-bezier(0.19, 1, 0.22, 1);
+    z-index: 5;
 
 }
 .square:hover {
@@ -69,6 +70,9 @@
     background-image: url("../img/white-square.png");
 }  
 
+.square, .red-square, .white-square, .green-square, .grey {
+    position: relative;
+}
 
 .grey{
     border: 2px solid rgb(70, 70, 70);
@@ -77,9 +81,31 @@
     background-image: url("../img/grey-square.png");
 }
 
+.grey .icon, .grey .icon-big{
+   display: none;
+}
+
 @keyframes glowing {
     0% { box-shadow: 0 0 -10px #FFF; }
     40% { box-shadow: 0 0 20px #FFF; }
     60% { box-shadow: 0 0 20px #FFF; }
     100% { box-shadow: 0 0 -10px #FFF; }
   }
+
+
+.icon {
+    width:90px;
+    display: inline-block;
+    margin-left: auto; 
+    margin-right: auto;
+    vertical-align: middle;
+}
+
+.icon-big {
+    width:210px;
+    position: absolute;
+    left: -30px;
+    height: 150px;
+    vertical-align: middle;
+    z-index: 10;
+}

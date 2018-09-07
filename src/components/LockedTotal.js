@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Total.css';
+import lock from '../img/lock-icon.svg';
 
 
 class LockedTotal extends Component{
@@ -18,6 +19,7 @@ class LockedTotal extends Component{
         return(
             
             <div className={lockedClasses}>
+                <img  className="lock-icon" src={lock} alt="" />
                 ${lockedTotal.toLocaleString('en')}
             </div>
         )

@@ -26,13 +26,14 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
 
 body {
-  background: radial-gradient(ellipse at center, rgb(41, 41, 41) 0%,rgba(14,14,14,1) 100%);
+  background: radial-gradient(ellipse at center, rgb(41, 41, 41) 0%, rgba(14, 14, 14, 1) 100%);
   min-height: 100vh;
   box-sizing: border-box;
   display: flex;
@@ -41,10 +42,9 @@ body {
   font-family: 'Passion One', cursive;
   color: #fff;
   transition: all .5s;
-  
 }
 
-.grid{
+.grid {
   border: 3px solid rebeccapurple;
   border-radius: 15px;
   padding: 30px;
@@ -55,7 +55,20 @@ body {
   grid-gap: 20px;
 }
 
-.game-area{
+.game-area {
+  display: block;
+  position: relative;
+}
+
+.game-area::after {
   background-image: url("./img/bg-metal.png");
-  width: 100%
+  width: 100%;
+  height: 100%;
+  content: "";
+  display: block;
+  position: absolute;
+  opacity: .5;
+  top: 0;
+  left: 0;
+  z-index: 1;
 }

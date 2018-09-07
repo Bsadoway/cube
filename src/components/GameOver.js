@@ -15,7 +15,7 @@ class GameOver extends Component{
         return(
             <div className="game-over-container">
                 GAME OVER
-                <button onClick={this.props.reset}>RESET GAME</button>
+                <div onClick={this.props.reset}>RESET GAME</div>
             </div>
         )
     }

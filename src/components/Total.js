@@ -17,7 +17,7 @@ class Total extends Component{
         return(
             <div className="total-box">
                 $
-                <CountUp start={this.props.oldTotal} end={numberUp} separator=","/>
+                <CountUp start={this.props.oldTotal} end={numberUp} duration={2} separator=","/>
             </div>
         )
     }

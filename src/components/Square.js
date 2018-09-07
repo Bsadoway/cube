@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import './Square.css';
-
+import bomb from '../img/bomb.svg';
+import bankrupt from '../img/bankrupt.svg';
+import moneylock from '../img/moneylock.svg';
+import box from '../img/giftbox.svg';
 
 class Square extends Component{
     constructor(props){
@@ -31,7 +34,14 @@ class Square extends Component{
         console.log(value);
         switch(value[0]) {
             case "The Bomb":
-                return (<img src={'/img/bomb.jpg'} alt={value}></img>);
+                return <img className="icon" src={bomb} alt={value[0]}/>;
+            case "Bankrupt":
+                return <img className="icon-big" src={bankrupt} alt={value[0]}/>;
+            case "Money Lock":
+                return <img className="icon" src={moneylock} alt={value[0]}/>;
+            case "Small Mystery Box":
+            case "Big Mystery Box":
+                return <img className="icon" src={box} alt={value[0]}/>;
             default:
                 return value;
         }
