@@ -4,6 +4,7 @@ import bomb from '../img/bomb.svg';
 import bankrupt from '../img/bankrupt.svg';
 import moneylock from '../img/moneylock.svg';
 import box from '../img/giftbox.svg';
+import slasher from '../img/moneyslash.svg';
 
 class Square extends Component{
     constructor(props){
@@ -31,7 +32,6 @@ class Square extends Component{
     }
 
     changePowerPieceIcon = (value) => {
-        console.log(value);
         switch(value[0]) {
             case "The Bomb":
                 return <img className="icon" src={bomb} alt={value[0]}/>;
@@ -39,6 +39,8 @@ class Square extends Component{
                 return <img className="icon-big" src={bankrupt} alt={value[0]}/>;
             case "Money Lock":
                 return <img className="icon" src={moneylock} alt={value[0]}/>;
+            case "The Slasher":
+                return <img className="icon" src={slasher} alt={value[0]}/>;
             case "Small Mystery Box":
             case "Big Mystery Box":
                 return <img className="icon" src={box} alt={value[0]}/>;
