@@ -1,17 +1,25 @@
 .square {
     background: blue;
     cursor: pointer;
-    border: 1px solid rgba(255, 255, 255, .25);
+    border: 2px solid rgba(255, 255, 255, .25);
     box-shadow: 30px 30px 30px -20px rgba(0, 0, 0, .6);
-    border-radius: 2px;
     transition: all .5s;
     text-shadow:
    -1px -1px 0 #000,  
     1px -1px 0 #000,
     -1px 1px 0 #000,
      1px 1px 0 #000;
+    font-size: 40px;
     text-align: center;
-    font-size: 30px;
+    line-height: 150px;
+    background-image: url("../img/blue-square.png");
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0);
+    outline: 1px solid;
+    outline-color: rgba(255, 255, 255, .5);
+    outline-offset: 0px;
+    text-shadow: none;
+    transition: all 1250ms cubic-bezier(0.19, 1, 0.22, 1);
+
 }
 .square:hover {
     border: 2px solid rgba(white,.7);
@@ -22,25 +30,51 @@
     text-shadow: 1px 1px 2px #427388; 
 }
 
-.squareflip {
+.red-square{
+    border: 2px solid rgb(110, 0, 0);
     font-size: 30px;
-    cursor: pointer;
     transition: all 1s;
-    background: #fff;
     text-shadow: 1px 1px 1px rgba(150, 150, 150, 1);
-    border: 1px solid rgba(255, 255, 255, .25);
     box-shadow: 30px 30px 30px -20px rgba(0, 0, 0, .6);
-    border-radius: 2px;
     animation: glowing 1000ms;
     pointer-events: none;
     text-align: center;
     line-height: 150px;
+    background-image: url("../img/red-square.png");
 }
 
+.green-square{
+    border: 2px solid rgb(9, 119, 33);
+    font-size: 30px;
+    transition: all 1s;
+    text-shadow: 1px 1px 1px rgba(150, 150, 150, 1);
+    box-shadow: 30px 30px 30px -20px rgba(0, 0, 0, .6);
+    animation: glowing 1000ms;
+    pointer-events: none;
+    text-align: center;
+    line-height: 150px;
+    background-image: url("../img/green-square.png");
+}
+
+.white-square {
+    border: 2px solid rgba(255, 255, 255, 1);
+    font-size: 40px;
+    transition: all 1s;
+    text-shadow: 1px 1px 1px rgba(150, 150, 150, 1);
+    box-shadow: 30px 30px 30px -20px rgba(0, 0, 0, .6);
+    animation: glowing 1000ms;
+    pointer-events: none;
+    text-align: center;
+    line-height: 150px;
+    background-image: url("../img/white-square.png");
+}  
+
+
 .grey{
-    background: #808080;
-    color: #808080;
-    text-shadow: 0px 0px 0px rgba(150, 150, 150, 1);
+    border: 2px solid rgb(70, 70, 70);
+    color: transparent;
+    text-shadow: 0px 0px 0px rgba(150, 150, 150, .01);
+    background-image: url("../img/grey-square.png");
 }
 
 @keyframes glowing {

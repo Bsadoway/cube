@@ -32,7 +32,7 @@ class App extends Component {
   render() {
     const ActiveGame = this.state.game;
     return (
-      <div>
+      <div className="game-area">
         {this.state.gameOver ? <GameOver reset={this.newGame}/> : "" }
         <ActiveGame />
 

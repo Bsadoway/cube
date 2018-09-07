@@ -1,18 +1,17 @@
 .heart-container {
-    width: 35px;
-    height: 35px;
-    background: red;
-    margin: 10px;
+    height: 70px;
+    width: 90px;
     cursor: pointer;
+    background-image: url("../img/full-heart.png");
+    background-repeat: no-repeat;
 }
 
 .heart-container-dead {
-    background: transparent;
-    border: 2px solid red;
-    width: 35px;
-    height: 35px;
-    margin: 10px;
+    height: 70px;
+    width: 90px;
     pointer-events: none;
+    background-repeat: no-repeat;
+    background-image: url("../img/empty-heart.png");
 }
 
 .heart-containers {

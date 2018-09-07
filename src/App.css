@@ -32,7 +32,7 @@
 }
 
 body {
-  background: linear-gradient(#000, rebeccapurple);
+  background: radial-gradient(ellipse at center, rgb(41, 41, 41) 0%,rgba(14,14,14,1) 100%);
   min-height: 100vh;
   box-sizing: border-box;
   display: flex;
@@ -41,12 +41,21 @@ body {
   font-family: 'Passion One', cursive;
   color: #fff;
   transition: all .5s;
+  
 }
 
 .grid{
+  border: 3px solid rebeccapurple;
+  border-radius: 15px;
+  padding: 30px;
   flex: 0 0 auto;
   display: grid;
   grid-template-columns: repeat(5, 150px);
   grid-template-rows: repeat(5, 150px);
   grid-gap: 20px;
+}
+
+.game-area{
+  background-image: url("./img/bg-metal.png");
+  width: 100%
 }

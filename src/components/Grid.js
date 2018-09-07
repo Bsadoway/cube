@@ -56,7 +56,6 @@ class Grid extends Component{
                 this.setState({nextRound: true});
             }
             if(this.state.round === 8) {
-                this.props.endGame();
             }
         }
     }
