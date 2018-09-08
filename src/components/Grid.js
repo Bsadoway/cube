@@ -5,6 +5,7 @@ import myData from '../values.json';
 import Total from './Total';
 import LockedTotal from './LockedTotal';
 import Lives from './Lives';
+import GiftBoxContainer from './GiftBoxContainer';
 
 const round = {
     "1": 5,
@@ -34,6 +35,9 @@ class Grid extends Component{
             nextRound: false,
             powerPieces: [],
             leftOverSquaresAmount: 25,
+            giftBoxes: [],
+            bankrupt: false,
+            moneylock:false
         }
     }
       
@@ -101,19 +105,41 @@ class Grid extends Component{
     powerPieceValueHandler = (powerPiece,total) => {
         switch(powerPiece){
             case "Bankrupt":
+                this.setState({bankrupt:true})
                 return 0;
             case "The Slasher":
                 return Math.floor(total/2);
             case "Money Lock":
-                this.setState({lockedTotal: total});
+                this.setState({lockedTotal: total, moneylock:true});
                 return 0;
             case "The Bomb":
                 this.removeLife();
+                return total;
+            case "Small Mystery Box":
+            case "Big Mystery Box":
+                this.addGift(powerPiece);
                 return total;
             default:
                 return total;
         }
     }
+
+    addGift = (powerPiece) => {
+        let giftBoxes = [];
+        giftBoxes =  this.state.giftBoxes;
+        giftBoxes.push(powerPiece);
+        this.setState({giftBoxes: giftBoxes});
+    }
+
+    // deleteGift = (active, powerPiece)=> {
+    //     if(active) {
+    //         let giftBoxes = [];
+    //         giftBoxes =  this.state.giftBoxes;
+    //         let index = giftBoxes.indexOf(powerPiece);
+    //         giftBoxes.slice(index, 1);
+    //         this.setState({giftBoxes: giftBoxes});
+    //     }
+    // }
    
     // add the value to the total and push the selected square onto the selected square array
     addValue = (e) => {
@@ -242,6 +268,7 @@ class Grid extends Component{
                         </div>
                         <Lives lives={this.state.lives} onChange={this.removeLife.bind(this)}/>
                         <h2><Total total={total} oldTotal={oldTotal}/></h2>
+                        <GiftBoxContainer bankrupt={this.state.bankrupt} moneylock={this.state.moneylock} round={this.state.round} giftBoxes={this.state.giftBoxes}/>
                         <h2><LockedTotal lockedTotal={lockedTotal}/></h2>
                     </div>
                 </div>
