@@ -14,16 +14,19 @@ class GiftBoxContainer extends Component{
     
     render(){
         let giftBoxes = this.props.giftBoxes;
-        let boxes = [];  
-        // for(let i = 0;i < giftBoxes.length; i++ ){
-        //     boxes.push(<GiftBox bankrupt={this.props.bankruptSwitch} moneylock={this.props.moneylock} key={i} round={this.props.round} datavalue={giftBoxes[i]}/>)
-        // }
+        let lockedGiftBoxes = this.props.lockedGiftBoxes;
+        let boxes = []; 
+        let lockedBoxes = []; 
         for(let key in giftBoxes){
-            boxes.push(<GiftBox safeGifts={this.props.safeGifts} moneylock={this.props.moneylock} key={key} round={this.props.round} datavalue={giftBoxes[key].name}/>)
+            boxes.push(<GiftBox safeGifts={this.props.safeGifts} key={key} round={this.props.round} datavalue={giftBoxes[key].name}/>)
+        }
+        for(let key in lockedGiftBoxes){
+            lockedBoxes.push(<GiftBox key={key} datavalue={lockedGiftBoxes[key].name} gift={lockedGiftBoxes[key].gift} locked={true}/>)
         }
         return(
             <div className="gift-box-container">
                {boxes}
+               {lockedBoxes}
             </div>
         )
     }

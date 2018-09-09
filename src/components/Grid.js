@@ -36,8 +36,7 @@ class Grid extends Component{
             powerPieces: [],
             leftOverSquaresAmount: 25,
             giftBoxes: {},
-            bankrupt: false,
-            moneylock:false
+            lockedGifts: {}
         }
     }
       
@@ -110,7 +109,8 @@ class Grid extends Component{
             case "The Slasher":
                 return Math.floor(total/2);
             case "Money Lock":
-                this.setState({lockedTotal: total, moneylock:true});
+                this.setState({lockedTotal: total});
+                this.lockGifts();
                 return 0;
             case "The Bomb":
                 this.removeLife();
@@ -124,18 +124,19 @@ class Grid extends Component{
         }
     }
 
+    // Add gifts to giftbox object when found
     addGift = (powerPiece) => {
         let giftBoxes = {};
         giftBoxes =  this.state.giftBoxes;
         giftBoxes[powerPiece] = { name: powerPiece, mutable: false }  
-        // giftBoxes.push(powerPiece);
         this.setState({giftBoxes: giftBoxes});
     }
 
-    safeGifts = (e) => {
+    // if the gifts are opened they now are mutable with the bankrupt or money lock
+    safeGifts = (value, gift) => {
         let giftBoxes = {};
         giftBoxes =  this.state.giftBoxes;
-        giftBoxes[e] = { name: e, mutable: true };
+        giftBoxes[value] = { name: value, gift: gift, mutable: true };
         this.setState({giftBoxes: giftBoxes});
     }
 
@@ -147,10 +148,23 @@ class Grid extends Component{
                 delete giftBoxes[key];
             }
         }
-        console.log(giftBoxes);
         this.setState({giftBoxes: giftBoxes});
     }
    
+    lockGifts = () => {
+        let giftBoxes = {};
+        let lockedGifts = {};
+        giftBoxes =  this.state.giftBoxes;
+        for(let key in giftBoxes){
+            if(giftBoxes[key].mutable === true){
+                lockedGifts[key] = giftBoxes[key];
+                delete giftBoxes[key];
+            }
+        }
+        
+        this.setState({giftBoxes: giftBoxes, lockedGifts: lockedGifts});
+    }
+
     // add the value to the total and push the selected square onto the selected square array
     addValue = (e) => {
         let sq = [];
@@ -277,8 +291,9 @@ class Grid extends Component{
                         </div>
                         <Lives lives={this.state.lives} onChange={this.removeLife.bind(this)}/>
                         <h2><Total total={total} oldTotal={oldTotal}/></h2>
-                        <GiftBoxContainer safeGifts={this.safeGifts} moneylock={this.state.moneylock} round={this.state.round} giftBoxes={this.state.giftBoxes}/>
+                        <GiftBoxContainer safeGifts={this.safeGifts} round={this.state.round} giftBoxes={this.state.giftBoxes}/>
                         <h2><LockedTotal lockedTotal={lockedTotal}/></h2>
+                        <GiftBoxContainer safeGifts={this.safeGifts} round={this.state.round} lockedGiftBoxes={this.state.lockedGifts}/>
                     </div>
                 </div>
             </div>

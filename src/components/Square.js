@@ -42,6 +42,7 @@ class Square extends Component{
             case "The Slasher":
                 return <img className="icon" src={slasher} alt={value[0]}/>;
             case "Small Mystery Box":
+                return <img className="icon-small" src={box} alt={value[0]}/>;
             case "Big Mystery Box":
                 return <img className="icon" src={box} alt={value[0]}/>;
             default:
