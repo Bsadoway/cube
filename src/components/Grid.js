@@ -35,7 +35,7 @@ class Grid extends Component{
             nextRound: false,
             powerPieces: [],
             leftOverSquaresAmount: 25,
-            giftBoxes: [],
+            giftBoxes: {},
             bankrupt: false,
             moneylock:false
         }
@@ -105,7 +105,7 @@ class Grid extends Component{
     powerPieceValueHandler = (powerPiece,total) => {
         switch(powerPiece){
             case "Bankrupt":
-                this.setState({bankrupt:true})
+                this.deleteGifts();
                 return 0;
             case "The Slasher":
                 return Math.floor(total/2);
@@ -125,21 +125,31 @@ class Grid extends Component{
     }
 
     addGift = (powerPiece) => {
-        let giftBoxes = [];
+        let giftBoxes = {};
         giftBoxes =  this.state.giftBoxes;
-        giftBoxes.push(powerPiece);
+        giftBoxes[powerPiece] = { name: powerPiece, mutable: false }  
+        // giftBoxes.push(powerPiece);
         this.setState({giftBoxes: giftBoxes});
     }
 
-    // deleteGift = (active, powerPiece)=> {
-    //     if(active) {
-    //         let giftBoxes = [];
-    //         giftBoxes =  this.state.giftBoxes;
-    //         let index = giftBoxes.indexOf(powerPiece);
-    //         giftBoxes.slice(index, 1);
-    //         this.setState({giftBoxes: giftBoxes});
-    //     }
-    // }
+    safeGifts = (e) => {
+        let giftBoxes = {};
+        giftBoxes =  this.state.giftBoxes;
+        giftBoxes[e] = { name: e, mutable: true };
+        this.setState({giftBoxes: giftBoxes});
+    }
+
+    deleteGifts = ()=> {
+        let giftBoxes = {};
+        giftBoxes =  this.state.giftBoxes;
+        for(let key in giftBoxes){
+            if(giftBoxes[key].mutable === true){
+                delete giftBoxes[key];
+            }
+        }
+        console.log(giftBoxes);
+        this.setState({giftBoxes: giftBoxes});
+    }
    
     // add the value to the total and push the selected square onto the selected square array
     addValue = (e) => {
@@ -236,7 +246,6 @@ class Grid extends Component{
     }
 
     // load correct values based on the round
-    // TODO fix state being directly changed without setstate()
     loadValue = () => {
         let item = this.state.money.splice([Math.floor(Math.random()*this.state.money.length)],1);
         return item;    
@@ -268,7 +277,7 @@ class Grid extends Component{
                         </div>
                         <Lives lives={this.state.lives} onChange={this.removeLife.bind(this)}/>
                         <h2><Total total={total} oldTotal={oldTotal}/></h2>
-                        <GiftBoxContainer bankrupt={this.state.bankrupt} moneylock={this.state.moneylock} round={this.state.round} giftBoxes={this.state.giftBoxes}/>
+                        <GiftBoxContainer safeGifts={this.safeGifts} moneylock={this.state.moneylock} round={this.state.round} giftBoxes={this.state.giftBoxes}/>
                         <h2><LockedTotal lockedTotal={lockedTotal}/></h2>
                     </div>
                 </div>

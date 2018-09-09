@@ -10,13 +10,13 @@ class GiftBox extends Component{
 
         this.state = {
             active: true,
-            reveal: ""
+            reveal: "",
+            mutable: false
         }
         
     }
     
     onClick = (e) => {
-        console.log(this.props.datavalue);
         let round = this.props.round;
         let value = this.props.datavalue;
         let reveal = "";
@@ -37,22 +37,18 @@ class GiftBox extends Component{
             }
         }
         this.setState({active: false, reveal: reveal});
+        this.props.safeGifts(value);
     }
-
-    returnActive = () => {
-        return this.state.active;
-    }
-
 
     render(){
         let giftClass = this.state.active ? "green-square selectable" : "gift-box-opened";
         return(
             <div>
-                {this.props.bankrupt && !this.state.active ? "" : 
+                {/* {this.props.bankrupt && !this.state.active ? "" :  */}
                     <div className={giftClass} value={this.state.reveal} onClick={e =>this.onClick(e)}>
                         <img className="icon" src={giftBox} alt={this.state.reveal}/>
                     </div>
-                }
+                {/* } */}
             </div>
         )
     }
