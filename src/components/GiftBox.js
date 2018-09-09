@@ -6,6 +6,7 @@ import porsche from '../img/porsche.svg';
 import rome from '../img/rome.svg';
 import vitamix from '../img/vitamix.svg';
 import bose from '../img/bose.svg';
+import giftSelectsfx from '../audio/giftbox-select.mp3';
 
 
 class GiftBox extends Component{
@@ -15,9 +16,9 @@ class GiftBox extends Component{
         this.state = {
             active: true,
             reveal: "",
-            mutable: false
+            mutable: false,
+            sound: ""
         }
-        
     }
     
     onClick = (e) => {
@@ -29,7 +30,6 @@ class GiftBox extends Component{
                 reveal ="Bose Headphones";
             } else {
                 reveal ="Vitamix";
-                
             }
         }
         
@@ -40,7 +40,8 @@ class GiftBox extends Component{
                 reveal = "Porsche";
             }
         }
-        this.setState({active: false, reveal: reveal});
+        let sound = giftSelectsfx;
+        this.setState({active: false, reveal: reveal, sound: sound});
         this.props.safeGifts(value, reveal);
     }
 
@@ -76,6 +77,7 @@ class GiftBox extends Component{
                     :
                     <div className={giftClass} value={this.state.reveal} onClick={e =>this.onClick(e)}>
                         <img className={iconClass} src={giftBoxSrc} alt={this.state.reveal}/>
+                        <audio ref="audio_tag" src={this.state.sound} autoPlay/>
                     </div>
                     }
             </div>

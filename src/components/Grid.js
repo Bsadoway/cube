@@ -85,8 +85,6 @@ class Grid extends Component{
         // go to next round
         let nextRound = this.state.round + 1;
         if(nextRound === 9){
-            console.log("game over");
-            // TODO make game over popup
         } else {
             let newMoneyValues = [...myData[nextRound].values];
             this.setState({

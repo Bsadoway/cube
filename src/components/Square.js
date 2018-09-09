@@ -5,6 +5,12 @@ import bankrupt from '../img/bankrupt.svg';
 import moneylock from '../img/moneylock.svg';
 import box from '../img/giftbox.svg';
 import slasher from '../img/moneyslash.svg';
+import moneysfx from '../audio/money.wav';
+import bombsfx from '../audio/bomb.mp3';
+import mysterysfx from '../audio/giftbox.wav';
+import bankruptsfx from '../audio/bankrupt.wav';
+import slashsfx from '../audio/slash.mp3';
+import locksfx from '../audio/moneylock.mp3';
 
 class Square extends Component{
     constructor(props){
@@ -13,9 +19,9 @@ class Square extends Component{
         this.state = {
             active : false,
             moneyValue:"",
+            sound : ''
         }   
     }
-
     
     revealValue = (e) => {
         if(this.props.pick() > 0) {
@@ -25,9 +31,37 @@ class Square extends Component{
         }
     }
 
-    flip = (e) => {
+    playSFX = () => {
+        const value = this.props.value;
+        let sound;
+        switch(value[0]) {
+            case "Small Mystery Box":
+            case "Big Mystery Box":
+                sound = mysterysfx;
+                break;
+            case "The Bomb":
+                sound = bombsfx;
+                break;
+            case "Bankrupt":
+                sound = bankruptsfx;
+                break;
+            case "The Slasher":
+                sound = slashsfx;
+                break;
+            case "Money Lock":
+                sound = locksfx;
+                break;
+            default:
+                sound = moneysfx;
+                break;
+        }
+        return sound;
+    }
+
+    flip = () => {
         this.setState({
-            active: !this.state.active
+            active: !this.state.active,
+            sound: this.playSFX()
         });
     }
 
@@ -64,7 +98,6 @@ class Square extends Component{
                 return 'white-square';
         }
     }
-    
 
     render(){
         const grey = this.props.onGrey? "grey" : "";
@@ -75,6 +108,8 @@ class Square extends Component{
         return(
             <div data-key={this.props['data-key']} className={squareClasses}  onClick={(e) => this.revealValue(e)} value={this.props.value}>
                 {this.state.active? value : key}
+                <audio ref="audio_tag" src={this.state.sound} autoPlay/>
+
             </div>
         )
     }
