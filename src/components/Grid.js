@@ -58,9 +58,9 @@ class Grid extends Component{
             if(this.state.round < 8) {
                 this.setState({nextRound: true});
             }
-            if(this.state.round === 8) {
-                this.props.endGame();
-            }
+            // if(this.state.round === 8) {
+            //     this.props.endGame();
+            // }
         }
     }
 
@@ -103,13 +103,13 @@ class Grid extends Component{
         switch(powerPiece){
             case "Bankrupt":
                 this.deleteGifts();
-                return 0;
+                return this.state.lockedTotal;
             case "The Slasher":
-                return Math.floor(total/2);
+                return Math.floor((total-this.state.lockedTotal)/2) + this.state.lockedTotal;
             case "Money Lock":
                 this.setState({lockedTotal: total});
                 this.lockGifts();
-                return 0;
+                return total;
             case "The Bomb":
                 this.removeLife();
                 return total;

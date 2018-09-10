@@ -6,6 +6,8 @@ import porsche from '../img/porsche.svg';
 import rome from '../img/rome.svg';
 import vitamix from '../img/vitamix.svg';
 import bose from '../img/bose.svg';
+import hdtv from '../img/hdtv.svg';
+import washer from '../img/washer.svg';
 import giftSelectsfx from '../audio/giftbox-select.mp3';
 
 
@@ -28,13 +30,17 @@ class GiftBox extends Component{
         if(value === "Small Mystery Box"){
             if(round <= 3) {
                 reveal ="Bose Headphones";
-            } else {
+            } else if(round >= 4 && round <=5) {
                 reveal ="Vitamix";
+            } else {
+                reveal ="HDTV";
             }
         }
         
         if(value === "Big Mystery Box"){
-            if(round <= 4) {
+            if(round < 5) {
+                reveal = "Washer"
+            } else if(round >= 5 && round <=6) {
                 reveal = "Trip to Italy";
             } else {
                 reveal = "Porsche";
@@ -55,6 +61,10 @@ class GiftBox extends Component{
                 return bose;
             case "Vitamix":
                 return vitamix;
+            case "HDTV":
+                return hdtv;
+            case "Washer":
+                return washer;
             case "Trip to Italy":
                 return rome;
             case "Porsche":
