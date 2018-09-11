@@ -16,6 +16,7 @@ const round = {
     "6": 2,
     "7": 2,
     "8": 1,
+    "9": 1,
 };
 
 class Grid extends Component{
@@ -55,12 +56,12 @@ class Grid extends Component{
 
     checkRound = () => {
         if(this.state.picks === 1){
-            if(this.state.round < 8) {
+            if(this.state.round < 9) {
                 this.setState({nextRound: true});
             }
-            // if(this.state.round === 8) {
-            //     this.props.endGame();
-            // }
+            if(this.state.round === 9) {
+                this.props.endGame();
+            }
         }
     }
 
@@ -83,19 +84,16 @@ class Grid extends Component{
 
     nextRound = () => {
         // go to next round
-        let nextRound = this.state.round + 1;
-        if(nextRound === 9){
-        } else {
-            let newMoneyValues = [...myData[nextRound].values];
-            this.setState({
-                round: nextRound,
-                picks: round[nextRound],
-                money: newMoneyValues,
-                nextRound:false
-            }, function(){
-                this.checkPowerPieces();
-            });
-        }
+    let nextRound = this.state.round + 1;
+        let newMoneyValues = [...myData[nextRound].values];
+        this.setState({
+            round: nextRound,
+            picks: round[nextRound],
+            money: newMoneyValues,
+            nextRound:false
+        }, function(){
+            this.checkPowerPieces();
+        });
     }
 
     // Bankrupts or slashes the money in half, locks money into the money lock bank

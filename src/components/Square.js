@@ -3,7 +3,8 @@ import './Square.css';
 import bomb from '../img/bomb.svg';
 import bankrupt from '../img/bankrupt.svg';
 import moneylock from '../img/moneylock.svg';
-import box from '../img/giftbox.svg';
+import largeGift from '../img/large-gift.svg';
+import smallGift from '../img/small-gift.svg';
 import slasher from '../img/moneyslash.svg';
 import moneysfx from '../audio/money.wav';
 import bombsfx from '../audio/bomb.mp3';
@@ -76,9 +77,9 @@ class Square extends Component{
             case "The Slasher":
                 return <img className="icon" src={slasher} alt={value[0]}/>;
             case "Small Mystery Box":
-                return <img className="icon-small" src={box} alt={value[0]}/>;
+                return <img className="icon-mystery" src={smallGift} alt={value[0]}/>;
             case "Big Mystery Box":
-                return <img className="icon" src={box} alt={value[0]}/>;
+                return <img className="icon-mystery" src={largeGift} alt={value[0]}/>;
             default:
                 return value;
         }

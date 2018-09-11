@@ -92,20 +92,19 @@
     100% { box-shadow: 0 0 -10px #FFF; }
 }
 
-.icon {
-    width:90px;
+.icon, .icon-small, .icon-mystery {
     display: inline-block;
     margin-left: auto; 
     margin-right: auto;
     vertical-align: middle;
 }
 
+.icon {
+    width:90px;
+}
+
 .icon-small {
     width:60px;
-    display: inline-block;
-    margin-left: auto; 
-    margin-right: auto;
-    vertical-align: middle;
 }
 
 .icon-big {
@@ -115,4 +114,8 @@
     height: 150px;
     vertical-align: middle;
     z-index: 10;
+}
+
+.icon-mystery {
+    width:110px;
 }

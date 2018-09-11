@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './GiftBox.css';
 import './Square.css'
 import giftBox from '../img/giftbox.svg';
+import smallGiftBox from '../img/small-gift.svg';
+import largeGiftBox from '../img/large-gift.svg';
 import porsche from '../img/porsche.svg';
 import rome from '../img/rome.svg';
 import vitamix from '../img/vitamix.svg';
@@ -51,7 +53,7 @@ class GiftBox extends Component{
         this.props.safeGifts(value, reveal);
     }
 
-    setIcon = (gift) => {
+    setRevealIcon = (gift) => {
         let revealValue = this.state.reveal;
         if(gift) {
             revealValue = gift;
@@ -74,11 +76,27 @@ class GiftBox extends Component{
         }
     }
 
+    setIcon = () => {
+        const data = this.props.datavalue;
+        console.log(data, this.state.reveal);
+        if(!this.state.reveal && !this.props.locked){
+            if(data === "Small Mystery Box"){
+                return smallGiftBox;
+            } else {
+                return largeGiftBox;
+            }
+        }
+        else {
+            return this.setRevealIcon(this.props.gift);
+        }
+    }
+
     render(){
         let giftClass = this.state.active? "green-square selectable" : "green-square selected";
-        let giftBoxSrc = this.setIcon(this.props.gift);
-        let iconSizeClass = this.props.datavalue === "Small Mystery Box" ? "icon-small" : "icon";
-        let iconClass = this.state.active ? iconSizeClass : "icon-gift";
+        let giftBoxSrc = this.setIcon();
+        // let iconSizeSrc = this.props.datavalue === "Small Mystery Box" ? smallGiftBox : largeGiftBox;
+        // let iconClass = this.state.active ? iconSizeClass : "icon-mystery";
+        // let iconSrc = this.state.active ? iconSizeClass : "icon-mystery";
         return(
             <div>   {this.props.locked ? 
                     <div className="green-square selected locked" value={this.props.gift}>
@@ -86,7 +104,7 @@ class GiftBox extends Component{
                     </div>
                     :
                     <div className={giftClass} value={this.state.reveal} onClick={e =>this.onClick(e)}>
-                        <img className={iconClass} src={giftBoxSrc} alt={this.state.reveal}/>
+                        <img className="icon-mystery" src={giftBoxSrc} alt={this.state.reveal}/>
                         <audio ref="audio_tag" src={this.state.sound} autoPlay/>
                     </div>
                     }

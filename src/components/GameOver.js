@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './GameOver.css';
-
+import gameoverSFX from '../audio/gameover.wav';
 
 class GameOver extends Component{
     constructor(props){
@@ -14,7 +14,11 @@ class GameOver extends Component{
     render(){
         return(
             <div className="game-over-container">
-                GAME OVER
+                <h1 className="game-over-title">
+                    GAME OVER
+                </h1>
+                    <audio ref="audio_tag" src={gameoverSFX} autoPlay/>
+
                 <div onClick={this.props.reset}>RESET GAME</div>
             </div>
         )

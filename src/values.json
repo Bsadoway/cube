@@ -22,5 +22,8 @@
     },
     "8":{
         "values": [128000,"Small Mystery Box", "The Slasher", "The Bomb", "Big Mystery Box", "Money Lock","Bankrupt"] 
+    },
+    "9":{
+        "values": [128000,"Small Mystery Box", "The Slasher", "The Bomb", "Big Mystery Box", "Money Lock","Bankrupt"] 
     }
 }
