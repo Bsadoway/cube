@@ -78,7 +78,6 @@ class GiftBox extends Component{
 
     setIcon = () => {
         const data = this.props.datavalue;
-        console.log(data, this.state.reveal);
         if(!this.state.reveal && !this.props.locked){
             if(data === "Small Mystery Box"){
                 return smallGiftBox;
@@ -94,9 +93,6 @@ class GiftBox extends Component{
     render(){
         let giftClass = this.state.active? "green-square selectable" : "green-square selected";
         let giftBoxSrc = this.setIcon();
-        // let iconSizeSrc = this.props.datavalue === "Small Mystery Box" ? smallGiftBox : largeGiftBox;
-        // let iconClass = this.state.active ? iconSizeClass : "icon-mystery";
-        // let iconSrc = this.state.active ? iconSizeClass : "icon-mystery";
         return(
             <div>   {this.props.locked ? 
                     <div className="green-square selected locked" value={this.props.gift}>

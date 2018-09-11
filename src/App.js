@@ -8,24 +8,24 @@ class App extends Component {
     super(props);
 
     this.state = {
-      game: ()=><Grid endGame={this.endGame}/>,
-      gameOver: false
-
-      
+      game: ()=><Grid endGame={this.endGame} />,
+      gameOver: false,
+      lives: 3,
+      total: 0,
     };
   }
 
   componentDidMount(){
   }
 
-  endGame = () =>{
-    this.setState({gameOver:true});
+  endGame = (lives, total) =>{
+    this.setState({gameOver:true, lives: lives, total:total});
   }
 
   newGame = () => {
     this.setState({
-      game: () => <Grid endGame={this.endGame}/>,
-      gameOver: false
+      game: () => <Grid endGame={this.endGame} />,
+      gameOver: false,
     });
   }
 
@@ -33,9 +33,8 @@ class App extends Component {
     const ActiveGame = this.state.game;
     return (
       <div className="game-area">
-        {this.state.gameOver ? <GameOver reset={this.newGame}/> : "" }
+        {this.state.gameOver ? <GameOver reset={this.newGame} lives={this.state.lives} total={this.state.total}/> : "" }
         <ActiveGame />
-
       </div>
 
     );

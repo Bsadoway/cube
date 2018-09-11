@@ -81,7 +81,7 @@
     background-image: url("../img/grey-square.png");
 }
 
-.grey .icon, .grey .icon-big,.grey .icon-small{
+.grey .icon, .grey .icon-big,.grey .icon-small, .grey .icon-mystery{
    display: none;
 }
 

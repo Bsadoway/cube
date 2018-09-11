@@ -54,13 +54,13 @@ class Grid extends Component{
         return this.state.picks;
     }
 
-    checkRound = () => {
+    checkRound = (total) => {
         if(this.state.picks === 1){
             if(this.state.round < 9) {
                 this.setState({nextRound: true});
             }
             if(this.state.round === 9) {
-                this.props.endGame();
+                this.props.endGame(this.state.lives, total);
             }
         }
     }
@@ -84,7 +84,7 @@ class Grid extends Component{
 
     nextRound = () => {
         // go to next round
-    let nextRound = this.state.round + 1;
+        let nextRound = this.state.round + 1;
         let newMoneyValues = [...myData[nextRound].values];
         this.setState({
             round: nextRound,
@@ -177,7 +177,7 @@ class Grid extends Component{
         sq = this.state.selectedSquares;
         sq.push(e.target.getAttribute('data-key'));
         this.setState({total: total, oldTotal: oldTotal, selectedSquares: sq, powerPieces: powerP});  
-        this.checkRound();  
+        this.checkRound(total);  
     }
 
 
@@ -266,7 +266,7 @@ class Grid extends Component{
         let lives = this.state.lives - 1;
         this.setState({lives: lives});
         if(lives === 0){
-            this.props.endGame();
+            this.props.endGame(lives);
         }        
     }
     

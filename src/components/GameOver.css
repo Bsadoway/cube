@@ -45,6 +45,10 @@
 
 }
 
+.total-won {
+    margin: 40px;
+}
+
 @keyframes moving {
     from {top: -100px;}
     to {top: 50px;}
