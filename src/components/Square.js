@@ -94,6 +94,10 @@ class Square extends Component{
             case "Small Mystery Box":
             case "Big Mystery Box":
             case "Money Lock":
+            case "Vitamix":
+            case "HDTV":
+            case "Trip To Italy":
+            case "Porsche":
                 return 'green-square';
             default:
                 return 'white-square';

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../Grid.css';
 import Square from '../Square';
-import myData from '../../values.json';
+import myData from '../../valuesv2.json';
 import Total from '../Total';
 import LockedTotal from '../LockedTotal';
 import Lives from '../Lives';
@@ -115,6 +115,10 @@ class Grid extends Component{
                 return total;
             case "Small Mystery Box":
             case "Big Mystery Box":
+            case "Vitamix":
+            case "HDTV":
+            case "Trip To Italy":
+            case "Porsche":
                 this.addGift(powerPiece);
                 return total;
             default:
@@ -126,7 +130,8 @@ class Grid extends Component{
     addGift = (powerPiece) => {
         let giftBoxes = {};
         giftBoxes =  this.state.giftBoxes;
-        giftBoxes[powerPiece] = { name: powerPiece, mutable: false }  
+        giftBoxes[powerPiece] = { name: powerPiece, mutable: false };
+        console.log(giftBoxes) ; 
         this.setState({giftBoxes: giftBoxes});
     }
 
@@ -167,7 +172,7 @@ class Grid extends Component{
     addValue = (e) => {
         let sq = [];
         let powerP = this.state.powerPieces;
-        
+        console.log(powerP);
         let total = this.state.total;
         let oldTotal = this.state.total;
         let val = e.target.getAttribute("value");
