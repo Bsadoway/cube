@@ -4,15 +4,15 @@ import './index.css';
 import App from './App';
 import BasicGrid from './components/BasicGrid';
 import appV2 from './components/v2/appV2';
-import { Route, Link, BrowserRouter as Router } from 'react-router-dom';
+import { Route, Link, HashRouter as Router } from 'react-router-dom';
 import registerServiceWorker from './registerServiceWorker';
 
 const routing = (
-    <Router>
+    <Router basename="/">
       <div>
-        <Route exact path="/" component={App} />
-        <Route path="/basic" component={BasicGrid} />
-        <Route path="/v2" component={appV2} />
+        <Route exact path={`${process.env.PUBLIC_URL}/`} component={App} />
+        <Route path={`${process.env.PUBLIC_URL}/basic`} component={BasicGrid} />
+        <Route path={`${process.env.PUBLIC_URL}/v2`} component={appV2} />
       </div>
     </Router>
   )
