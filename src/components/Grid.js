@@ -6,6 +6,7 @@ import Total from './Total';
 import LockedTotal from './LockedTotal';
 import Lives from './Lives';
 import GiftBoxContainer from './GiftBoxContainer';
+import WalkAway from './WalkAway';
 
 const round = {
     "1": 5,
@@ -60,7 +61,8 @@ class Grid extends Component{
                 this.setState({nextRound: true});
             }
             if(this.state.round === 9) {
-                this.props.endGame(this.state.lives, total);
+                // this.props.endGame(this.state.lives, total, this.state.lockedGifts);
+                this.walkAway(total);
             }
         }
     }
@@ -266,8 +268,28 @@ class Grid extends Component{
         let lives = this.state.lives - 1;
         this.setState({lives: lives});
         if(lives === 0){
-            this.props.endGame(lives);
+            this.props.endGame(lives, this.state.lockedTotal, this.state.lockedGifts);
         }        
+    }
+
+    // send opened boxes to end of round screen
+    walkAway = (total) => {
+        let safeGifts = {};
+        let giftBoxes = this.state.giftBoxes;
+        let lockedGift = this.state.lockedGifts;
+        for(let giftbox in giftBoxes) {
+            if (giftBoxes[giftbox].mutable === true) {
+                safeGifts[giftbox] = giftBoxes[giftbox];
+            }
+        }
+        for(let giftbox in lockedGift) {
+            if (lockedGift[giftbox].mutable === true) {
+                safeGifts[giftbox] = lockedGift[giftbox];
+            }
+        }
+        
+        let newTotal = isNaN(total)? this.state.total : total; 
+        this.props.endGame(this.state.lives, newTotal, safeGifts);
     }
     
     render() {
@@ -281,6 +303,7 @@ class Grid extends Component{
                         {this.state.squareGrid}
                     </div>
                     <div className="totals">
+                        <WalkAway endGame={this.walkAway} round={this.state.round}/>
                         <div className="rounds">
                             <h1>Round: {this.state.round}</h1>
                             <div className={this.state.nextRound ? 'next-round-active' : 'next-round-disabled'} onClick={this.nextRound}>>></div>

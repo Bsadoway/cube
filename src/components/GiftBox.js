@@ -42,7 +42,7 @@ class GiftBox extends Component{
         if(value === "Big Mystery Box"){
             if(round < 5) {
                 reveal = "Washer"
-            } else if(round >= 5 && round <=6) {
+            } else if(round === 5) {
                 reveal = "Trip to Italy";
             } else {
                 reveal = "Porsche";

@@ -32,7 +32,7 @@
     left: 0;
 }
 
-.game-over-container div{
+.reset{
     border: 3px solid rebeccapurple;
     font-size: 30px;
     padding: 20px;
@@ -40,7 +40,7 @@
     background: rgba(82, 4, 134, 0.6)
 }
 
-.game-over-container div:hover{
+.reset:hover{
     transform: scale(1.05);
 
 }

@@ -1,7 +1,7 @@
 .gift-box-container {
     display: flex;
     z-index: 10;
-    margin: auto;
+    margin: 10px auto;
 }
 
 .selectable,

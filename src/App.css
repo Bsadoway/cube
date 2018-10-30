@@ -72,3 +72,14 @@ body {
   left: 0;
   z-index: 1;
 }
+
+.basic-switch {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+  background: rgb(70, 70, 70);
+  z-index: 999;
+}
