@@ -36,10 +36,7 @@ class App extends Component {
   render() {
     const ActiveGame = this.state.game;
     return (
-      this.state.basicGrid? <BasicGrid /> :
       <div className="game-area">
-
-        <div className="basic-switch" onClick={this.basicSwitch}></div>
         {this.state.gameOver ? <GameOver reset={this.newGame} lives={this.state.lives} total={this.state.total} gifts={this.state.lockedGifts}/> : "" }
         <ActiveGame />
       </div>
