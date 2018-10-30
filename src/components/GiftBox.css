@@ -1,5 +1,7 @@
 .gift-box-container {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     z-index: 10;
     margin: 10px auto;
 }

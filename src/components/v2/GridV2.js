@@ -5,7 +5,7 @@ import myData from '../../valuesv2.json';
 import Total from '../Total';
 import LockedTotal from '../LockedTotal';
 import Lives from '../Lives';
-import GiftBoxContainer from '../GiftBoxContainer';
+import GiftBoxContainer from './GiftBoxContainerV2';
 import WalkAway from '../WalkAway';
 
 const round = {
@@ -130,8 +130,7 @@ class Grid extends Component{
     addGift = (powerPiece) => {
         let giftBoxes = {};
         giftBoxes =  this.state.giftBoxes;
-        giftBoxes[powerPiece] = { name: powerPiece, mutable: false };
-        console.log(giftBoxes) ; 
+        giftBoxes[powerPiece] = { name: powerPiece, mutable: true };
         this.setState({giftBoxes: giftBoxes});
     }
 
@@ -158,6 +157,7 @@ class Grid extends Component{
         let giftBoxes = {};
         let lockedGifts = {};
         giftBoxes =  this.state.giftBoxes;
+        console.log(giftBoxes, lockedGifts)
         for(let key in giftBoxes){
             if(giftBoxes[key].mutable === true){
                 lockedGifts[key] = giftBoxes[key];
@@ -172,7 +172,6 @@ class Grid extends Component{
     addValue = (e) => {
         let sq = [];
         let powerP = this.state.powerPieces;
-        console.log(powerP);
         let total = this.state.total;
         let oldTotal = this.state.total;
         let val = e.target.getAttribute("value");

@@ -6,6 +6,10 @@ import moneylock from '../img/moneylock.svg';
 import largeGift from '../img/large-gift.svg';
 import smallGift from '../img/small-gift.svg';
 import slasher from '../img/moneyslash.svg';
+import porsche from '../img/porsche.svg';
+import rome from '../img/rome.svg';
+import vitamix from '../img/vitamix.svg';
+import hdtv from '../img/hdtv.svg';
 import moneysfx from '../audio/money.wav';
 import bombsfx from '../audio/bomb.mp3';
 import mysterysfx from '../audio/giftbox.wav';
@@ -80,6 +84,14 @@ class Square extends Component{
                 return <img className="icon-mystery" src={smallGift} alt={value[0]}/>;
             case "Big Mystery Box":
                 return <img className="icon-mystery" src={largeGift} alt={value[0]}/>;
+            case "Porsche":
+                return <img className="icon-mystery" src={porsche} alt={value[0]}/>;
+            case "Vitamix":
+                return <img className="icon-mystery" src={vitamix} alt={value[0]}/>;
+            case "HDTV":
+                return <img className="icon-mystery" src={hdtv} alt={value[0]}/>;
+            case "Trip To Italy":
+                return <img className="icon-mystery" src={rome} alt={value[0]}/>;
             default:
                 return value;
         }
