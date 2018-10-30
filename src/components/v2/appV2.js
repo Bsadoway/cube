@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import './App.css';
-import Grid from './components/Grid';
-import GameOver from './components/GameOver';
+import '../../App.css';
+import Grid from './GridV2';
+import GameOver from '../../components/GameOver';
 
 class App extends Component {
   constructor(props){
@@ -31,6 +31,7 @@ class App extends Component {
     const ActiveGame = this.state.game;
     return (
       <div className="game-area">
+      <h1>THIS IS OTHER GRID</h1>
         {this.state.gameOver ? <GameOver reset={this.newGame} lives={this.state.lives} total={this.state.total} gifts={this.state.lockedGifts}/> : "" }
         <ActiveGame />
       </div>
