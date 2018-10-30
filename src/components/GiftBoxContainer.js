@@ -9,7 +9,6 @@ class GiftBoxContainer extends Component{
 
         this.state = {
         }
-        
     }
     
     render(){

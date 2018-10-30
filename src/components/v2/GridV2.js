@@ -167,11 +167,15 @@ class Grid extends Component{
     addValue = (e) => {
         let sq = [];
         let powerP = this.state.powerPieces;
+        
         let total = this.state.total;
         let oldTotal = this.state.total;
         let val = e.target.getAttribute("value");
         if(isNaN(val)){
-            powerP.push(val);
+            // check for bomb so that it remains on all rounds
+            if(val !== "The Bomb"){
+                powerP.push(val);
+            }
             total = this.powerPieceValueHandler(val,total);    
         } else {
             total = this.state.total + Number(val);
