@@ -88,7 +88,6 @@ class Grid extends Component{
         // go to next round
         let nextRound = this.state.round + 1;
         let newMoneyValues = [...myData[nextRound].values];
-        console.log(newMoneyValues);
         this.setState({
             round: nextRound,
             picks: round[nextRound],
@@ -158,7 +157,6 @@ class Grid extends Component{
         let giftBoxes = {};
         let lockedGifts = {};
         giftBoxes =  this.state.giftBoxes;
-        console.log(giftBoxes, lockedGifts)
         for(let key in giftBoxes){
             if(giftBoxes[key].mutable === true){
                 lockedGifts[key] = giftBoxes[key];
@@ -276,7 +274,6 @@ class Grid extends Component{
     removeLife = () => {
         let lives = this.state.lives - 1;
         this.setState({lives: lives});
-        console.log(lives);
         if(lives === 0){
             this.props.endGame(lives, this.state.lockedTotal, this.state.lockedGifts);
         }        
